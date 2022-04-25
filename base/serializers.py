@@ -6,52 +6,16 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-'''Здесь описываем то, что необходимо получить из модели User. Fields это список той 
-информации которую необходимо отправить на фронтенд'''
-# Сериалайзер при создании пользователя
 class UserCreateSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
         fields = ("id", "email", "name", "password",)
 
 
-# Сериалайзер при логине, отправляет на фронт данные из модели текущего пользователя
 class UserSerializer(UserSerializer):
     class Meta(UserSerializer.Meta):
         model = User
         fields = ("id", "email", 'name', 'phone', 'is_staff')
-
-
-
-
-
-
-# class UserSerializer(serializers.ModelSerializer):
-#     name = serializers.SerializerMethodField(read_only=True)
-#     _id = serializers.SerializerMethodField(read_only=True)
-#     isAdmin = serializers.SerializerMethodField(read_only=True)
-
-
-
-#     class Meta:
-#         model = User
-#         fields = ['id', '_id', 'username', 'email', 'name', 'isAdmin']
-        
-#     def get__id(self, obj):
-#         return obj.id
-
-#     def get_isAdmin(self, obj):
-#         return obj.is_staff
-
-#     def get_name(self, obj):
-#         name = obj.first_name
-#         if name == '':
-#             name = obj.email
-#         return name
-    
-
-
-
 
 
 class UserSerializerWithToken(UserSerializer):
@@ -82,9 +46,6 @@ class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
         fields = '__all__'
-
-
-
 
 
 class OrderSerializer(serializers.ModelSerializer):

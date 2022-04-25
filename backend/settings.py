@@ -18,7 +18,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -27,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    # textura app
     "corsheaders",
     'djoser',
     'rest_framework',
@@ -36,12 +36,7 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'base.User'
 
-
-'''Далее идут настройки для JWT, как это делать, см. документацию'''
-
-# Пишем, что авторизация будет проходить через JWT
 REST_FRAMEWORK = {
- 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
@@ -49,8 +44,6 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
-    
-    # В этих настройках указывается сколько времени будет действиетелен токен
     'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
@@ -74,7 +67,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # Здесь соединяем Django с React:
+        # React build settings
         'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -135,7 +128,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Настройки для Djoser:
 DJOSER = {
     "LOGIN_FIELD": "email",
     "USER_CREATE_PASSWORD_RETYPE": True,
@@ -149,15 +141,10 @@ DJOSER = {
     "ACTIVATION_URL": "activate/{uid}/{token}",
     "SEND_ACTIVATION_EMAIL": True,
     'SEND_CONFIRMATION_EMAIL': True,
-    # "SOCIAL_AUTH_TOKEN_STRATEGY": "djoser.social.token.jwt.TokenStrategy",
-    # "SOCIAL_AUTH_ALLOWED_REDIRECT_URIS": [
-    #     "your redirect url",
-    #     "your redirect url",
-    # ],
     "SERIALIZERS": {
-        "user_create": "base.serializers.UserCreateSerializer",  # custom serializer
-        "user": "base.serializers.UserSerializer", # сериалайзер для текущего пользователя
-        "current_user": "base.serializers.UserSerializer", # сериалайзер для текущего пользователя
+        "user_create": "base.serializers.UserCreateSerializer", 
+        "user": "base.serializers.UserSerializer", 
+        "current_user": "base.serializers.UserSerializer", 
         "user_delete": "djoser.serializers.UserSerializer",
     },
 }
@@ -183,7 +170,7 @@ MEDIA_ROOT = 'static/images'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Настройки для отправки электронной почты
+# Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
