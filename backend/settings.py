@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6m)bv=(5mpa8#%3jsu=^)hx7uq=e#ey^b4(1qqul&ri)mo^*q5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -161,13 +161,13 @@ DJOSER = {
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
 
 STATICFILES_DIRS = [
-    # os.path.join(BASE_DIR, 'build/static')
+    os.path.join(BASE_DIR, 'build/static')
 ]
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/images/'
 
