@@ -1,6 +1,11 @@
 from pathlib import Path
 import os
 from datetime import timedelta
+
+# Heroku settings.
+import django_heroku
+django_heroku.settings(locals())
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -14,7 +19,7 @@ SECRET_KEY = 'django-insecure-6m)bv=(5mpa8#%3jsu=^)hx7uq=e#ey^b4(1qqul&ri)mo^*q5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -24,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     
     # textura app
@@ -53,6 +59,7 @@ SIMPLE_JWT = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -154,16 +161,18 @@ DJOSER = {
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'build/static')
+    # os.path.join(BASE_DIR, 'build/static')
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/images/'
 
-MEDIA_ROOT = 'static/images'
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'build', 'images')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -174,8 +183,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'sistersbeautylabbot@gmail.com'
-EMAIL_HOST_PASSWORD = 'Gbhfn2208!'
+EMAIL_HOST_USER = 'jon504544@gmail.com'
+EMAIL_HOST_PASSWORD = 'textura123456'
 EMAIL_PORT = 587
 
 

@@ -10,7 +10,7 @@ from .serializers import ProductSerializer, OrderSerializer
 @api_view(['GET'])
 def getProducts(request):
     products = Product.objects.all()
-    serializer = ProductSerializer(products, many=True)
+    serializer = ProductSerializer(products, many=True, context={'request': request})
     return Response(serializer.data)
 
 
@@ -18,7 +18,7 @@ def getProducts(request):
 @api_view (['GET'])
 def getProduct(request, pk):
     product = Product.objects.get(_id=pk)
-    serializer = ProductSerializer(product, many=False)
+    serializer = ProductSerializer(product, many=False, context={'request': request})
     return Response (serializer.data)
 
 
@@ -65,7 +65,7 @@ def addOrderItems(request):
             )
         product.available -= item.qty
         product.save()
-    serializer = OrderSerializer(order, many=False)
+    serializer = OrderSerializer(order, many=False, context={'request': request})
     return Response(serializer.data)
 
 
@@ -77,7 +77,7 @@ def getOrderById(request, pk):
   try:
     order = Order.objects.get(_id=pk)
     if user.is_staff or order.user == user:         
-      serializer = OrderSerializer(order, many=False)  
+      serializer = OrderSerializer(order, many=False, context={'request': request})  
       return Response(serializer.data)     
     else:
       Response({'detail': 'Not authorized to view this order'}, status=status.HTTP_400_BAD_REQUEST)
@@ -91,7 +91,7 @@ def getOrderById(request, pk):
 def getMyOrders(request):
   user= request.user
   orders = user.order_set.all()  
-  serializer = OrderSerializer(orders, many=True)                 
+  serializer = OrderSerializer(orders, many=True, context={'request': request})                 
   return Response(serializer.data)
 
 

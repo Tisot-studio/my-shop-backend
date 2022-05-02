@@ -1,0 +1,4 @@
+.env
+/txtenv
+/.git
+.gitignore

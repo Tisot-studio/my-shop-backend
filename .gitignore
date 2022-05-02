@@ -1,2 +1,5 @@
 .env
-/txtenv
+myenv/
+__pycache__/
+static/
+*.sqlite3
