@@ -1,5 +1,13 @@
 .env
+
 myenv/
+
 __pycache__/
+
 static/
+
 *.sqlite3
+
+staticfiles/
+
+build/
